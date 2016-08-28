@@ -12,7 +12,10 @@ __this.DeferCascade(function()
 {
   __this.first().find('.approve.button').click(function()
   {
-    var values = __this.first().find('form').serialize();
+    var form = __this.first().find('form').serializeArray();
+    var values = {};
+    for (var k in form)
+      values[form[k].name] = form[k].value;
 
     phoxy.ApiRequest
     ([
