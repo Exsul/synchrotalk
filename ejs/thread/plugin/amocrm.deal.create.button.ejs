@@ -1,0 +1,23 @@
+<button class='ui button'>Создать сделку</button>
+
+<%
+__this.Defer(function()
+{
+  __this.first().click(function()
+  {
+    __this.first().prop('disabled', true);
+
+    phoxy.ApiRequest
+    (
+      [
+        'plugin/amocrm/create_form',
+        __this.account_id,
+        __this.thread_id
+      ], function()
+      {
+        __this.first().prop('disabled', false);
+      }
+    );
+  });
+});
+%>

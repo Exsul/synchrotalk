@@ -1,0 +1,26 @@
+<%
+__this.CascadeDesign('utils/modal/abstract',
+  {
+    data:
+    [
+      'thread/plugin/amocrm.deal.create.form',
+      __this,
+    ],
+  });
+
+__this.DeferCascade(function()
+{
+  __this.first().find('.approve.button').click(function()
+  {
+    var values = __this.first().find('form').serialize();
+
+    phoxy.ApiRequest
+    ([
+      'plugin/amocrm/create',
+      __this.account_id,
+      __this.thread_id,
+      values
+    ]);
+  });
+});
+%>
