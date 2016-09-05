@@ -4,18 +4,41 @@ class amocrm extends api
 {
   protected function linked_deal($account_id, $thread_id)
   {
-    $amo_account = $this->RequireAccount();
+    $contact = $this->linked_contact($account_id, $thread_id);
+
+    var_dump($contact);
+    die();
+
+    $deals = $this->LoginedAmoCRM()->find_contact_deals($contact->id);
+
 
     return
     [
       'data' =>
       [
         'amo_account' => $amo_account,
-        'id' => 0,
+        'deal' => current($deals),
         'account_id' => $account_id,
         'thread_id' => $thread_id,
       ],
     ];
+  }
+
+  private function linked_contact($account_id, $thread_id)
+  {
+    $salt = $this->contact_salt($account_id, $thread_id);
+
+    $amocrm = $this->LoginedAmoCRM();
+    $contact = $amocrm->find_contact_by_salt($salt);
+
+    return $contact;
+  }
+
+  private function contact_salt($account_id, $thread_id)
+  {
+    $account = phoxy::Load('accounts')->info($account_id);
+
+    return md5($account->network.$thread_id);
   }
 
   protected function create_form($account_id, $thread_id)
