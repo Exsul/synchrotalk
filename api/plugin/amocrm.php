@@ -2,25 +2,29 @@
 
 class amocrm extends api
 {
-  protected function linked_deal($account_id, $thread_id)
+  protected function linked_deals($account_id, $thread_id)
   {
     $contact = $this->linked_contact($account_id, $thread_id);
-
-    var_dump($contact);
-    die();
-
-    $deals = $this->LoginedAmoCRM()->find_contact_deals($contact->id);
-
 
     return
     [
       'data' =>
       [
-        'amo_account' => $amo_account,
-        'deal' => current($deals),
         'account_id' => $account_id,
         'thread_id' => $thread_id,
+        'deals' => $contact ? $contact->deals : [],
       ],
+    ];
+  }
+
+  protected function deal_info($deal_id)
+  {
+    $amocrm = $this->LoginedAmoCRM();
+
+    return
+    [
+      'design' => 'thread/plugin/amocrm.deal.preview',
+      'data' => $amocrm->deal_info($deal_id),
     ];
   }
 
@@ -29,7 +33,7 @@ class amocrm extends api
     $salt = $this->contact_salt($account_id, $thread_id);
 
     $amocrm = $this->LoginedAmoCRM();
-    $contact = $amocrm->find_contact_by_salt($salt);
+    $contact = $amocrm->find_contact_by_query($salt);
 
     return $contact;
   }
@@ -69,8 +73,11 @@ class amocrm extends api
     $amocrm = $this->LoginedAmoCRM();
 
     $deal = $this->create_deal($amocrm, (array)$params, $user);
+
     $user['deal'] = $deal;
     $user['salt'] = $this->contact_salt($account_id, $thread_id);
+
+    var_dump($user);
 
     $this->create_contact($amocrm, $user);
 
@@ -121,16 +128,9 @@ class amocrm extends api
 
   private function create_contact($amocrm, $user)
   {
-    $user =
-    [
-      'name' => $user['name'],
-      'deal' => $user['deal'],
-      'network' => $user['network'],
-      'chat_link' => $user['chat_link'],
-      'profile_link' => $user['profile_link'],
-    ];
+    $user['name'] = implode(" ", $user['name']);
 
-    return $amocrm->create_contact($deal);
+    return $amocrm->create_contact($user);
   }
 
   private function ThreadLink($account_id, $thread_id)

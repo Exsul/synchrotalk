@@ -2,8 +2,8 @@
 if (__this.not_connected)
   return __this.CascadeDesign('thread/plugin/amocrm.connect.button');
 
-if (__this.id)
-  __this.CascadeDesign('thread/plugin/amocrm.deal.preview', __this);
-else
-  __this.CascadeDesign('thread/plugin/amocrm.deal.create.button', __this);
+if (__this.deals.length > 0)
+  __this.CascadeDesign('thread/plugin/amocrm.deals', __this);
+
+__this.CascadeDesign('thread/plugin/amocrm.deal.create.button', __this);
 %>
