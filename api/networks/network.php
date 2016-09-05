@@ -77,6 +77,12 @@ class network extends api
     return $obj;
   }
 
+  public function finish_work($account_id, $network)
+  {
+    $token = $network->get_token();
+    phoxy::Load('accounts/tokens')->update($account_id, $token);
+  }
+
   private function init_network_object($obj, $network)
   {
     $settings = conf()->networks->init->$network;

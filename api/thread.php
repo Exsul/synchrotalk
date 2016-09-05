@@ -26,6 +26,8 @@ class thread extends api
 
     $ret = $network->messages($thread_id);
 
+    phoxy::Load('networks/network')->finish_work($account_id, $network);
+
     return
     [
       'data' =>
@@ -43,6 +45,7 @@ class thread extends api
     $network = phoxy::Load('networks/network')
       ->by_account_id($account_id);
 
+    phoxy::Load('networks/network')->finish_work($account_id, $network);
 
     return
     [

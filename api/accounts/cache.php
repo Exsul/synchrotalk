@@ -64,6 +64,8 @@ class cache extends api
 
     $result = $resolver($network, $resolved, $resource_id);
 
+    phoxy::Load('networks/network')->finish_work($account_id, $network);
+
     phoxy_protected_assert($result, "Resolver returned failure on $type cache miss");
 
     return $return;
