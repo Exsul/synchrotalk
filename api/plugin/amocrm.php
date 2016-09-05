@@ -64,7 +64,7 @@ class amocrm extends api
     $account = phoxy::Load('accounts')->info($account_id);
     $user['network'] = $account['network'];
     $user['chat_link'] = $this->ThreadLink($account_id, $thread_id);
-    $user['profile_link'] = "http://TO.DO";
+    $user['profile_link'] = "http://TODO.{$account['network']}/{$user['nickname']}";
 
     $amocrm = $this->LoginedAmoCRM();
 
@@ -87,13 +87,11 @@ class amocrm extends api
   {
     $threads = phoxy::Load('inbox')->threads($account_id);
 
-    var_dump($threads);
-
     foreach ($threads as $thread)
-      if ($thread['id'] == $thread_id)
-        foreach ($thread['users'] as $user)
-          if ($user['id'])
-            return $user['id'];
+      if ($thread->id == $thread_id)
+        foreach ($thread->users as $user)
+          if ($user->id)
+            return $user->id;
 
     return 0;
   }
@@ -139,7 +137,7 @@ class amocrm extends api
   {
     $obj = [ $account_id, $thread_id ];
     $json = json_encode($obj, true);
-    return conf()->domain."plugin/amocrm/to_thread({$json})";
+    return phoxy_conf()["site"]."plugin/amocrm/to_thread({$json})";
   }
 
   protected function Thread($obj)
@@ -168,10 +166,11 @@ class amocrm extends api
   private function LoginedAmoCRM()
   {
     $amo_account = $this->RequireAccount();
-    $token = phoxy::Load('accounts/tokens')->info('amocrm');
+    $token = phoxy::Load('accounts/tokens')->info($amo_account);
 
-    $amocrm->sign_in($token->token_data);
     $amocrm = phoxy::Load('networks')->get_network_object('amocrm');
+    $amocrm->sign_in($token->token_data);
+
     return $amocrm;
   }
 }
