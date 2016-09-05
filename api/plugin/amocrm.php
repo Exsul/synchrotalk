@@ -43,11 +43,7 @@ class amocrm extends api
     $user['chat_link'] = $this->ThreadLink($account_id, $thread_id);
     $user['profile_link'] = "http://TO.DO";
 
-    $amocrm = phoxy::Load('networks')->get_network_object('amocrm');
-
-    $token = phoxy::Load('accounts/tokens')->info('amocrm');
-
-    $amocrm->sign_in($token->token_data);
+    $amocrm = $this->LoginedAmoCRM();
 
     $deal = $this->create_deal($amocrm, (array)$params, $user);
     $user['deal'] = $deal;
@@ -143,5 +139,15 @@ class amocrm extends api
           'not_connected' => 1,
         ],
       ]);
+  }
+
+  private function LoginedAmoCRM()
+  {
+    $amo_account = $this->RequireAccount();
+    $token = phoxy::Load('accounts/tokens')->info('amocrm');
+
+    $amocrm->sign_in($token->token_data);
+    $amocrm = phoxy::Load('networks')->get_network_object('amocrm');
+    return $amocrm;
   }
 }
