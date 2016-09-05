@@ -10,7 +10,7 @@ class user extends api
     ];
   }
 
-  public function StorageShortcut()
+  private function StorageShortcut()
   {
     return function &()
     {
@@ -18,10 +18,17 @@ class user extends api
     };
   }
 
-  public function &GetSessionStorage()
+  private function &GetSessionStorage()
   {
     if (session_status() != PHP_SESSION_ACTIVE)
+    {
+      session_cache_limiter("");
+
       session_start();
+    }
+
+    global $USER_SENSITIVE;
+      $USER_SENSITIVE = 1;
 
     return $_SESSION;
   }

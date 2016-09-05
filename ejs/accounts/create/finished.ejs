@@ -7,17 +7,10 @@ __this.CascadeDesign('utils/dimmer/dimmer.attention',
 
 __this.DeferCascade(function()
 {
-  __this.first()
-    .dimmer
-      ({
-        onShow: function()
-        {
-          phoxy.Defer(function()
-          {
-            __this.first().dimmer('hide');
-          }, 3000);
-        }
-      })
+  phoxy.Defer(function()
+  {
+    __this.first().dimmer('hide');
+  }, 3000);
 });
 
 phoxy.MenuCall(['accounts/welcome', __this.account]);

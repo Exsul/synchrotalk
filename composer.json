@@ -12,6 +12,9 @@
     "mustangostang/spyc": "~0.5",
     "tedivm/jshrink": "~1.0",
     "enelar/phpsql": "~0.0.12",
-    "oyejorge/less.php": "~1.7.0.9"
+    "oyejorge/less.php": "~1.7.0.9",
+    "semantic/ui": "~2.2",
+    "components/jquery": "~3.1",
+    "etdsolutions/requirejs": "~2.2"
   }
 }

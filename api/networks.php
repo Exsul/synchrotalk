@@ -9,6 +9,13 @@ class networks extends api
     if (!is_null($name))
       return[ "data" => in_array($name, $plugins) ];
 
+    $supported =
+      array_diff
+      (
+        $plugins,
+        conf()->plugins->hide->__2array()
+      );
+
     return
     [
       "design" => "networks/list",
@@ -17,7 +24,7 @@ class networks extends api
         "networks" => array_map(function($plugin)
         {
           return['name' => $plugin];
-        }, $plugins),
+        }, $supported),
       ],
     ];
   }

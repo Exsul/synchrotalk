@@ -18,41 +18,6 @@ class accounts extends api
     ];
   }
 
-  protected function grant_demo_access()
-  {
-    $this->revoke_demo_access();
-    return $this->add(
-      conf()->demo->network,
-      conf()->demo->login,
-      conf()->demo->password
-      );
-  }
-
-  protected function revoke_demo_access()
-  {
-    $storage_functor = phoxy::Load('user')->StorageShortcut();
-    $accounts = &$storage_functor()['accounts'];
-    $accounts = [];
-  }
-
-  protected function demo_me()
-  {
-    $storage_functor = phoxy::Load('user')->StorageShortcut();
-    $accounts = &$storage_functor()['accounts'];
-
-    phoxy_protected_assert(count($accounts), "User not logined");
-
-    return
-    [
-      "script" => "user",
-      "before" => "user.login",
-      "data" =>
-      [
-        "user" => array_values($accounts)[0]['user'],
-      ],
-    ];
-  }
-
   public function save_network($network, $token, $expiration = null)
   {
     if (is_null($expiration))

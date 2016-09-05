@@ -60,6 +60,11 @@ class inbox extends api
       );
     }
 
+    usort($inbox, function ($a, $b)
+    {
+      return $b['updated'] - $a['updated'];
+    });
+
     return
     [
       "design" => "inbox/itemize",
@@ -75,7 +80,8 @@ class inbox extends api
     $resolver = function($network, $cb, $uid)
     {
       $threads = $network->threads();
-      if (!$threads)
+
+      if (!is_array($threads))
         return false;
 
       return $cb($threads, time() + 60);

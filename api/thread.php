@@ -6,6 +6,10 @@ class thread extends api
   {
     return
     [
+      "cache" =>
+      [
+        "global" => "1w"
+      ],
       "design" => "thread/index",
       "data" =>
       [

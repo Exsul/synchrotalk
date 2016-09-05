@@ -4,41 +4,29 @@ route:
   - url: \/\..*
     forbid: true
 
-  - url: \/enjs.js
-    rewrite: vendor/phoxy/enjs/enjs.js
-
-  - url: \/less
-    script: engine/less.php
-
-  - url: \/(.+\.js)$
-    static: true
-    compress: true
-    minify: true
-    mime: application/javascript
-
-  - url: \/(.+\.css)$
-    static: true
-    compress: true
-    mime: text/css
-
-  - url: \/(.+\.ejs)$
-    static: true
-    compress: true
-    mime: text/ejs
-
-  - url: \/assets\/(.+\.png)$
-    static: true
-    mime: image/png
-
-  - url: \/assets\/(.+\.jpg)$
-    static: true
-    mime: image/jpg
-
   - url: \/robots\.txt
     rewrite: /api/utils/robot/robot
 
   - url: \/sitemap\.xml
     rewrite: /api/utils/robot/sitemap
+
+  - url: \/enjs.js
+    rewrite: vendor/phoxy/enjs/enjs.js
+    max_age: 25200 # 1 week
+
+  - url: \/less
+    script: engine/less.php
+    max_age: 25200 # 1 week
+
+  - url: \/.+\.(js|css|ejs)$
+    static: true
+    compress: true
+    minify: true
+    max_age: 25200 # 1 week
+
+  - url: \/.+\.(png|jpg|ttf|txt|woff|woff2)$
+    static: true
+    max_age: 25200 # 1 week
 
   - url: \/api\/?$
     rewrite: /api/main/home

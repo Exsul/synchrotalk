@@ -7,21 +7,10 @@ __this.CascadeDesign('utils/dimmer/dimmer.attention',
 
 __this.DeferCascade(function()
 {
-  function hide()
+  phoxy.Defer(function()
   {
-    phoxy.Defer(function()
-    {
-      __this.first().dimmer('hide');
-    }, 3000);
-  }
+    __this.first().dimmer('hide');
+  }, 3000);
 
-  __this.first()
-    .dimmer
-      ({
-        onShow: hide
-      })
-
-  if (!__this.first().dimmer('is animating'))
-    hide();
 });
 %>

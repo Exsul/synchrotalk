@@ -1,5 +1,8 @@
 <?php
 require_once('vendor/autoload.php');
+ini_set('xdebug.var_display_max_depth', 10);
+
+date_default_timezone_set("Europe/Moscow");
 
 if (!PRODUCTION)
 {
@@ -12,6 +15,11 @@ function phoxy_conf()
   $ret = phoxy_default_conf();
   $ret["api_xss_prevent"] = PRODUCTION;
   $ret["autostart"] = false;
+  $ret["cache"] =
+  [
+    "global" => "no",
+    "session" => "1w",
+  ];
 
   return $ret;
 }
@@ -20,15 +28,19 @@ function default_addons()
 {
   $ret =
   [
-    "cache" => PRODUCTION ? ['global' => '10m'] : "no",
+    "cache" => "no",
     "result" => "canvas",
   ];
+
   return $ret;
 }
 
 ob_start();
 function append_warnings_to_object($that)
 {
+  if (phoxy_conf()["debug_api"] && !phoxy_conf()["is_ajax_request"])
+    return;
+
   $buffer = ob_get_contents();
   ob_end_clean();
 
@@ -36,14 +48,16 @@ function append_warnings_to_object($that)
     $that->obj["warnings"] = $buffer;
 }
 
-
 include('phoxy/server/phoxy_return_worker.php');
 phoxy_return_worker::$add_hook_cb = function($that)
 {
   global $USER_SENSITIVE;
 
   if ($USER_SENSITIVE)
-    $that->obj['cache'] = 'no';
+    $that->NewCache(['global' => 'no']);
+
+  if (!isset($that->obj["data"]) && !isset($that->obj["error"]))
+    $that->NewCache(['global' => '1w']);
 
   $that->hooks[] = append_warnings_to_object;
 };
@@ -65,5 +79,6 @@ try
   ];
 
   ob_end_clean();
+
   die (json_encode($message, true));
 }

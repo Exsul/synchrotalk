@@ -14,5 +14,27 @@ if (typeof data != 'undefined')
 }
 
 %>
+<img class="<%@ __this.classes %>">
+<%
+// Scheduling image download instead of messing network request queue
 
-<img class="<%@ __this.classes %>" src="<%@ url %>">
+function SetImgSrc()
+{
+  __this.first().attr('src', url);
+}
+
+__this.SetUrl = function(_url)
+{
+  if (typeof _url != 'undefined')
+    url = _url;
+
+  if (typeof ajax_booster == 'undefined')
+    return SetImgSrc();
+
+  // Never make real ajax request, it require server header
+  ajax_booster.low_priority_request(undefined, SetImgSrc);
+};
+
+if (typeof url != 'undefined')
+  __this.Defer(this.SetUrl);
+%>

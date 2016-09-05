@@ -1,10 +1,7 @@
 <!DOCTYPE html>
 <head>
-  <script phoxy='main' type='text/javascript'>
-  phoxy = { wait: true };
-  </script>
-  <script async src='//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.15/require.min.js'></script>
-  <script async src='/engine/warmup.js' type="text/javascript"></script>
+  <script async src='/vendor/etdsolutions/requirejs/require.min.js'></script>
+  <script async phoxy='main' src='/engine/warmup.js'></script>
   <meta name="fragment" content="!">
 
   <style class='removeafterload'>
@@ -21,11 +18,11 @@
   <div class='centered removeafterload'>
     <div>
       <div>
-        <div class='relative spinner'>
-          <div id='percent' class='percentage'></div>
-          <div class='cube1'></div>
-          <div class='cube2'></div>
-        </div>
+        <b class='relative spinner'>
+          <b id='percent'></b>
+          <b cube1></b>
+          <b cube2></b>
+        </b>
       </div>
     </div>
   </div>

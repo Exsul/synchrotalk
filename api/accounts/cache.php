@@ -26,7 +26,7 @@ class cache extends api
 
     if ($cache())
     {
-      echo "TODO: Check expiration";
+      phoxy::SetCacheTimeoutTimestamp("session", $cache->expired);
       return $this->WorkaroundPHPSQLIssue($cache->data->__2array());
     }
 
@@ -54,6 +54,8 @@ class cache extends api
       use (&$return, $type, $resource_id)
     {
       $return = $data;
+
+      phoxy::SetCacheTimeoutTimestamp("session", $expiration);
 
       $this->Update($type, $resource_id, $data, $expiration);
 

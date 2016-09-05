@@ -27,7 +27,7 @@
   position: relative;
 }
 
-.removeafterload .cube1, .removeafterload .cube2 {
+.removeafterload [cube1], .removeafterload [cube2] {
   background-color: #333;
   width: 10px;
   height: 10px;
@@ -39,7 +39,7 @@
   animation: cubemove 1.8s infinite ease-in-out;
 }
 
-.removeafterload .cube2 {
+.removeafterload [cube2] {
   -webkit-animation-delay: -0.9s;
   animation-delay: -0.9s;
 }
@@ -70,7 +70,7 @@
   }
 }
 
-.removeafterload .percentage {
+.removeafterload #percent {
   background-color: black;
   margin-left: -20px;
   margin-top: -10px;

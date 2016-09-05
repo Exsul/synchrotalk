@@ -1,5 +1,9 @@
 <%
-__this.Defer(function()
+
+var url = __this.url;
+delete __this.url;
+
+function resolve_candidates()
 {
   var first = __this.first();
 
@@ -21,7 +25,7 @@ __this.Defer(function()
     height: first.height(),
   };
 
-  __this.url.sort(function (a, b)
+  url.sort(function (a, b)
   {
     if (a.width != b.width)
       return a.width - b.width;
@@ -29,20 +33,21 @@ __this.Defer(function()
     return a.height - b.height;
   });
 
-  for (var k in __this.url)
+  for (var k in url)
   {
-    var candidate = __this.url[k];
+    var candidate = url[k];
 
     if (candidate.width < container.width ||
       candidate.height < container.height)
       continue;
 
-    return __this.first().attr('src', candidate.url);
+    return this.SetUrl(candidate.url);
   }
 
   // We do not match container requirements. Attach highest resolution
-  __this.first().attr('src', __this.url.pop().url);
-});
-%>
+  this.SetUrl(url.pop().url);
+}
 
-<img class="<%@ __this.classes %>">
+__this.CascadeDesign('utils/image/abstract', __this, resolve_candidates);
+
+%>

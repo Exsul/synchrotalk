@@ -3,8 +3,9 @@ db:
 plugins:
   root_path: networks
   lib_path: plugin
+  available:
+    -
+  hide:
+    -
 networks:
   icons:
-demo:
-  login:
-  password:

@@ -54,11 +54,15 @@ class auth extends api
     [
       'direct'   =>
       [
-
+        'direct_auth_requirments',
+        'direct_auth',
       ],
 
       'callback' =>
       [
+        'callback_auth_requirments',
+        'callback_auth_question',
+        'callback_auth_answer',
       ],
 
       'redirect' =>

@@ -7,7 +7,7 @@ var warmup_obj =
   OnWaiting: function()
   {
     phoxy._.EarlyStage.async_require[0] = "/enjs.js";
-    phoxy._.EarlyStage.async_require.push("//cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.min.js");
+    phoxy._.EarlyStage.async_require.push("/vendor/components/jquery/jquery.min.js");
     phoxy._.EarlyStage.EntryPoint();
   },
   OnBeforeCompile: function()
@@ -68,7 +68,7 @@ var warmup_obj =
   }
 };
 
-if (typeof phoxy.prestart === 'undefined')
+if (typeof phoxy === 'undefined' || typeof phoxy.prestart === 'undefined')
   phoxy = warmup_obj;
 else
 {
