@@ -4,10 +4,13 @@ class amocrm extends api
 {
   protected function linked_deal($account_id, $thread_id)
   {
+    $amo_account = $this->RequireAccount();
+
     return
     [
       'data' =>
       [
+        'amo_account' => $amo_account,
         'id' => 0,
         'account_id' => $account_id,
         'thread_id' => $thread_id,
@@ -122,5 +125,23 @@ class amocrm extends api
   protected function Thread($obj)
   {
     return phoxy::Load('thread', true)->Reserve($obj[0], $obj[1]);
+  }
+
+  private function RequireAccount()
+  {
+    $tokens = phoxy::Load('accounts/tokens')->connected();
+
+    foreach ($tokens as $token)
+      if ($token->network == 'amocrm')
+        return $token->account_id;
+
+    phoxy_protected_assert(false,
+      [
+        'design' => 'thread/plugin/amocrm.index',
+        'data' =>
+        [
+          'not_connected' => 1,
+        ],
+      ]);
   }
 }
