@@ -18,6 +18,7 @@ class accounts extends api
     ];
   }
 
+  // Token in callstack disclosure
   public function save_network($network, $token, $expiration = null)
   {
     if (is_null($expiration))

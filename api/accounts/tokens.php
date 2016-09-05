@@ -34,6 +34,19 @@ class tokens extends api
     return new phpa2o\phpa2o($ret);
   }
 
+  // Token in callstack disclosure
+  public function update($account_id, $token)
+  {
+    db::Query("UPDATE personal.tokens
+      SET token_data=$3
+      WHERE uid=$1 AND account_id=$2",
+      [
+        db::UID()
+        , $account_id
+        , json_encode($token)
+      ]);
+  }
+
   public function itemize()
   {
     return $this->connected();

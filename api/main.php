@@ -19,6 +19,19 @@ class main extends api
     return
     [
       'design' => 'main/home',
+      'data' =>
+      [
+        'version' => $this->version(),
+      ],
+      'cache' =>
+      [
+        'global' => '1w',
+      ],
     ];
+  }
+
+  private function version()
+  {
+    return exec('git describe --tags --abbrev=0');
   }
 }
