@@ -70,6 +70,7 @@ class amocrm extends api
 
     $deal = $this->create_deal($amocrm, (array)$params, $user);
     $user['deal'] = $deal;
+    $user['salt'] = $this->contact_salt($account_id, $thread_id);
 
     $this->create_contact($amocrm, $user);
 
