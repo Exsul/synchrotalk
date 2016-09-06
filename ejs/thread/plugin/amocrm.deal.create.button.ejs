@@ -1,28 +1,43 @@
-<button
-  class='ui compact basic blue button'
->
-  <i class="add to cart icon"></i>
-  Создать сделку
-</button>
+<div>
+  <button
+    class='ui compact basic blue button'
+  >
+    <i class="add to cart icon"></i>
+    Создать сделку
+  </button>
+</div>
 
 <%
 __this.Defer(function()
 {
-  __this.first().click(function()
-  {
-    __this.first().prop('disabled', true);
+  button = __this.first().find('button');
 
-    phoxy.ApiRequest
+  button.click(function()
+  {
+    button.prop('disabled', true);
+
+    modal = phoxy.DeferRender
     (
       [
         'plugin/amocrm/create_form',
         __this.account_id,
         __this.thread_id
-      ], function()
+      ],
+      undefined,
+      function()
       {
-        __this.first().prop('disabled', false);
+        button.prop('disabled', false);
+
+        this.first().on('deal.create', function()
+        {
+          button
+            .find('.icon')
+            .attr('class', 'notched circle loading icon');
+        });
       }
     );
+
+    __this.first().append(modal);
   });
 });
 %>

@@ -17,6 +17,8 @@ __this.DeferCascade(function()
     for (var k in form)
       values[form[k].name] = form[k].value;
 
+    __this.first().trigger('deal.create');
+
     phoxy.ApiRequest
     ([
       'plugin/amocrm/create',
