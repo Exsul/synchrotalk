@@ -4,10 +4,13 @@ class amocrm extends api
 {
   protected function linked_deals($account_id, $thread_id)
   {
+    phoxy::SetCacheTimeout('session', 0);
     $contact = $this->linked_contact($account_id, $thread_id);
 
     return
     [
+      'result' => 'amocrm',
+      'design' => 'thread/plugin/amocrm.index',
       'data' =>
       [
         'account_id' => $account_id,
@@ -19,6 +22,7 @@ class amocrm extends api
 
   protected function deal_info($deal_id)
   {
+    phoxy::SetCacheTimeout('session', 0);
     $amocrm = $this->LoginedAmoCRM();
 
     return
@@ -67,10 +71,25 @@ class amocrm extends api
 
   private function linked_contact($account_id, $thread_id)
   {
-    $salt = $this->contact_salt($account_id, $thread_id);
+    phoxy::SetCacheTimeout('session', 0);
+    $resolver = function($network, $cb, $salt)
+    {
+      $contact = $network->find_contact_by_query($salt);
 
-    $amocrm = $this->LoginedAmoCRM();
-    $contact = $amocrm->find_contact_by_query($salt);
+      if (!$contact)
+        return $cb($contact, time());
+
+      return $cb($contact, time() + 3600 * 24);
+    };
+
+    $contact = phoxy::Load('accounts/cache')
+      ->account($this->RequireAccount())
+      ->Retrieve
+      (
+        'linked_contact',
+        $this->contact_salt($account_id, $thread_id),
+        $resolver
+      );
 
     return $contact;
   }
@@ -120,11 +139,7 @@ class amocrm extends api
 
     unset($this->addons['result']);
 
-    return
-    [
-      'replace' => 'amocrm',
-      'design' => 'thread/plugin/amocrm',
-    ];
+    return $this->linked_deals($account_id, $thread_id);
   }
 
   private function UserIDFromThread($account_id, $thread_id)
