@@ -6,4 +6,9 @@ if (__this.deals.length > 0)
   __this.CascadeDesign('thread/plugin/amocrm.deals', __this);
 
 __this.CascadeDesign('thread/plugin/amocrm.deal.create.button', __this);
+
+__this.DeferCascade(function()
+{
+  __this.first().trigger('height.changed');
+});
 %>

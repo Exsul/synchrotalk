@@ -189,10 +189,10 @@ class amocrm extends api
   {
     $obj = [ $account_id, $thread_id ];
     $json = json_encode($obj, true);
-    return phoxy_conf()["site"]."plugin/amocrm/to_thread({$json})";
+    return phoxy_conf()["site"]."plugin/amocrm/thread({$json})";
   }
 
-  protected function Thread($obj)
+  protected function thread($obj)
   {
     return phoxy::Load('thread', true)->Reserve($obj[0], $obj[1]);
   }
