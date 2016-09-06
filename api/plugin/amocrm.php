@@ -28,6 +28,43 @@ class amocrm extends api
     ];
   }
 
+  protected function stage_info($stage_id)
+  {
+    foreach ($this->stages() as $stage)
+      if ($stage['id'] == $stage_id)
+        return
+        [
+          'design' => 'thread/plugin/amocrm.deal.stage.explain',
+          'data' => $stage
+        ];
+
+    phoxy_protected_assert(false, "AmoCRM plugin: stage not found");
+  }
+
+  private function stages()
+  {
+    $resolver = function($network, $cb, $uid)
+    {
+      $stages = $network->stages();
+
+      if (!$stages)
+        return false;
+
+      return $cb($stages, time() + 3600 * 24);
+    };
+
+    $stages = phoxy::Load('accounts/cache')
+      ->account($this->RequireAccount())
+      ->Retrieve
+      (
+        'stages',
+        0,
+        $resolver
+      );
+
+    return $stages;
+  }
+
   private function linked_contact($account_id, $thread_id)
   {
     $salt = $this->contact_salt($account_id, $thread_id);
