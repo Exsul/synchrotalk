@@ -1,17 +1,14 @@
 {
-  "name": "phoxy/bootstrap",
-  "description": "Little amount of files, required to best phoxy experience",
-  "license": "MIT",
   "minimum-stability": "dev",
   "require" :
   {
-    "php": "~5.5 || ~7.0",
-    "phoxy/phoxy": "~1.4.2",
-    "phoxy/snippets": "~0",
-    "enelar/phpa2o" : "~0",
+    "php": "~5.6 || ~7.1",
+    "phoxy/phoxy": "~1.4.6.0",
+    "phoxy/snippets": "~0.0",
+    "enelar/phpa2o" : "~0.0",
     "mustangostang/spyc": "~0.5",
     "tedivm/jshrink": "~1.0",
-    "enelar/phpsql": "~0.0.12",
+    "enelar/phpsql": "~0.0.16",
     "oyejorge/less.php": "~1.7.0.9",
     "semantic/ui": "~2.2",
     "components/jquery": "~3.1",

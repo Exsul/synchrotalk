@@ -2,6 +2,33 @@
 <%
 if (!__this.inbox.length)
   __this.__append("Inbox is empty. Let customer write you and update page.");
+
+var page_size = 5;
+
+
+var page = 0;
+function next_page()
+{
+  var page_begin = page * page_size;
+  var draw = __this.inbox.slice(page_begin, page_begin + page_size);
+  page++;
+
+  if (draw.length == 0)
+    return;
+
+  var render_chunk = phoxy.DeferRender('inbox/itemize.split',
+    {
+      inbox: draw
+    }, next_page, '<tr>');
+
+
+  __this.first().append(render_chunk);
+}
+
+__this.Defer(function()
+{
+  next_page();
+})
+
 %>
-  <% __this.ForeachDesign("inbox/itemize.entry", __this.inbox, undefined, "<tr>"); %>
 </table>

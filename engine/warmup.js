@@ -3,7 +3,6 @@ var warmup_obj =
   wait: true,
   config: "/api/phoxy",
   skip_initiation: true,
-  sync_cascade: false,
   verbose: 0,
   verbose_birth: 0,
   OnWaiting: function()
@@ -43,6 +42,11 @@ var warmup_obj =
 
       return arguments.callee.origin.apply(this, arguments);
     })
+
+    phoxy.Override('MenuCall', function workaround_phoxy_weaknes(url)
+    {
+      phoxy.Reset("/" + phoxy.ConstructURL(url));
+    });
 
     phoxy.Log(3, "Phoxy ready. Starting");
   },

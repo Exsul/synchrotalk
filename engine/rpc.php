@@ -13,13 +13,14 @@ if (!PRODUCTION)
 function phoxy_conf()
 {
   $ret = phoxy_default_conf();
-  $ret["api_xss_prevent"] = PRODUCTION;
+  $ret["api_csrf_prevent"] = PRODUCTION;
   $ret["autostart"] = false;
   $ret["cache"] =
   [
     "global" => "no",
     "session" => "1w",
   ];
+  $ret["sync_cascade"] = !PRODUCTION;
   $ret["ga"] = conf()->ga;
 
   return $ret;
@@ -53,6 +54,8 @@ include('phoxy/server/phoxy_return_worker.php');
 phoxy_return_worker::$add_hook_cb = function($that)
 {
   global $USER_SENSITIVE;
+
+  var_dump($that);
 
   if ($USER_SENSITIVE)
     $that->NewCache(['global' => 'no']);

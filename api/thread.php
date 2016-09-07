@@ -19,12 +19,12 @@ class thread extends api
     ];
   }
 
-  protected function Read($account_id, $thread_id)
+  protected function Read($account_id, $thread_id, $page = 0)
   {
     $network = phoxy::Load('networks/network')
       ->by_account_id($account_id);
 
-    $ret = $network->messages($thread_id);
+    $ret = $network->messages($thread_id, $page);
 
     phoxy::Load('networks/network')->finish_work($account_id, $network);
 
@@ -35,7 +35,8 @@ class thread extends api
         // When i spare a time phoxy have to overcome that
         'account_id' => $account_id,
         'thread_id' => $thread_id,
-        'items' => $ret
+        'items' => $ret,
+        'page' => $page,
       ],
     ];
   }

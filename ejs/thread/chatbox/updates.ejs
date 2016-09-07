@@ -7,7 +7,7 @@ var refresh_frequency = 5;
 
 __this.Defer(function()
 {
-  if (!$.contains(document, __this.first()))
+  if (!$.contains(document, __this.first()[0]))
     return;
 
   var task = phoxy.ApiRequest(['thread/read', __this.account_id, __this.thread_id],
