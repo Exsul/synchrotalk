@@ -3,6 +3,8 @@ var warmup_obj =
   wait: true,
   config: "/api/phoxy",
   skip_initiation: true,
+  verbose: 0,
+  verbose_birth: 0,
   OnWaiting: function()
   {
     phoxy._.EarlyStage.async_require[0] = "/enjs.js";
@@ -50,6 +52,31 @@ var warmup_obj =
   },
   OnBeforeFirstApiCall: function()
   {
+    function gaTracker(id){
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', id, 'auto');
+      ga('send', 'pageview');
+
+      phoxy.Override('MenuCall', function track_menu_call()
+      {
+        var ret = track_menu_call.origin.apply(this, arguments);
+        ga('send', 'pageview');
+        return ret;
+      });
+
+      phoxy.Override('ApiRequest', function track_api_request(url)
+      {
+        var ret = track_api_request.origin.apply(this, arguments);
+        ga('send', 'event', 'api', 'request', phoxy.ConstructURL(url));
+        return ret;
+      });
+    }
+
+    gaTracker(phoxy.Config()['ga']);
   },
   OnExecutingInitialClientCode: function()
   {
@@ -109,3 +136,4 @@ else
   if (percents === 100)
     $('.removeafterload').css('opacity', 0);
 })();
+

@@ -21,6 +21,7 @@ function phoxy_conf()
     "session" => "1w",
   ];
   $ret["sync_cascade"] = !PRODUCTION;
+  $ret["ga"] = conf()->ga;
 
   return $ret;
 }
