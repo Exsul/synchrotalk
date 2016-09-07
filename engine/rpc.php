@@ -20,6 +20,7 @@ function phoxy_conf()
     "global" => "no",
     "session" => "1w",
   ];
+  $ret["ga"] = conf()->ga;
 
   return $ret;
 }
