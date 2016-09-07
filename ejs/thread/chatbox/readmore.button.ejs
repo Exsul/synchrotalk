@@ -1,0 +1,24 @@
+<button class='ui button'>Read More
+  <span></span>
+</button>
+
+<%
+__this.Defer(function()
+{
+  __this.first().click(function()
+  {
+    var chunk = phoxy.DeferRender
+    (
+      'thread/chatbox/itemize.functor',
+      [
+      'thread/read',
+      __this.account_id,
+      __this.thread_id,
+      ++__this.page,
+    ]);
+
+    __this.first().after(chunk);
+    __this.first().find('span').html(__this.page);
+  });
+});
+%>

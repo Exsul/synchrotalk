@@ -43,7 +43,7 @@ var warmup_obj =
 
     phoxy.Override('MenuCall', function workaround_phoxy_weaknes(url)
     {
-      phoxy.Reset(phoxy.ConstructURL(url));
+      phoxy.Reset("/" + phoxy.ConstructURL(url));
     });
 
     phoxy.Log(3, "Phoxy ready. Starting");
