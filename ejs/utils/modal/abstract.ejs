@@ -3,7 +3,7 @@ if (__this.data == undefined)
   __this.data = __this;
 %>
 
-<div class="ui basic modal">
+<div class="ui <%@ __this.class %> modal">
   <% __this.CascadeDesign.apply(__this, __this.data) %>
 </div>
 

@@ -1,0 +1,14 @@
+<div class="ui compact segment">
+  <a
+    class="ui basic label"
+    href='<%@ __this.url %>'
+    target='amocrm'
+    not-phoxy
+  >
+    <%@ __this.name %>
+    <div class="detail">
+      <%@ __this.price %>
+    </div>
+  </a>
+  <% __this.CascadeRequest(['plugin/amocrm/stage_info', __this.stage]) %>
+</div>

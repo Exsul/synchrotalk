@@ -7,6 +7,7 @@
   </div>
 
   <div class='input'>
+    <% __this.CascadeDesign('thread/plugin/amocrm', __this) %>
     <% __this.CascadeDesign('thread/input/index') %>
   </div>
 </div>
@@ -24,7 +25,7 @@ function Recalculate()
 
 __this.DeferCascade(function()
 {
-  textarea = __this.first().find('textarea');
+  textarea = __this.first().find('.input');
   content = __this.first().children('.content');
 
   textarea.on('keydown keyup height.changed', Recalculate)

@@ -1,0 +1,11 @@
+<div id='amocrm'>
+<%
+__this.CascadeSupply(
+  'thread/plugin/amocrm.index',
+  [
+    'plugin/amocrm/linked_deals',
+    __this.account_id,
+    __this.thread_id
+  ]);
+%>
+</div>

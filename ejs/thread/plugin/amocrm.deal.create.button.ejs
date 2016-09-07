@@ -1,0 +1,43 @@
+<div>
+  <button
+    class='ui compact basic blue button'
+  >
+    <i class="add to cart icon"></i>
+    Создать сделку
+  </button>
+</div>
+
+<%
+__this.Defer(function()
+{
+  button = __this.first().find('button');
+
+  button.click(function()
+  {
+    button.prop('disabled', true);
+
+    modal = phoxy.DeferRender
+    (
+      [
+        'plugin/amocrm/create_form',
+        __this.account_id,
+        __this.thread_id
+      ],
+      undefined,
+      function()
+      {
+        button.prop('disabled', false);
+
+        this.first().on('deal.create', function()
+        {
+          button
+            .find('.icon')
+            .attr('class', 'notched circle loading icon');
+        });
+      }
+    );
+
+    __this.first().append(modal);
+  });
+});
+%>

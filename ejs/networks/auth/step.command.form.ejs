@@ -11,7 +11,7 @@ function info(message)
 function field(f)
 {
 %>
-  <h4 class='ui inverted header'><%@ f.title || f.name %></h4>
+  <h4 class='ui header'><%@ f.title || f.name %></h4>
 <%
   if (f.description)
     info(f.description);
@@ -22,7 +22,7 @@ function field(f)
 <%
 }
 %>
-<div class="ui form">
+<div class="ui form content">
 <%
 for (var i = 0; i < __this.length; i++)
   switch (__this[i].type)

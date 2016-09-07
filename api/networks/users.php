@@ -8,6 +8,8 @@ class users extends api
     {
       $user = $network->user($uid);
 
+      var_dump($user);
+
       if (!$user)
         return false;
 
