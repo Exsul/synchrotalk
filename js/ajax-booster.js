@@ -4,6 +4,7 @@ var ajax_booster =
   {
     phoxy.state.ajax.booster = {};
     phoxy.state.ajax.current_threads = 0;
+    phoxy.state.ajax.sheduled = 0;
 
     // http://www.browserscope.org/?category=network&v=top
     var web_requests_per_domain = 6;
@@ -52,6 +53,9 @@ var ajax_booster =
   ,
   schedule: function(url, cb, data)
   {
+    phoxy.state.ajax.sheduled++;
+    this.update_badge();
+
     var task =
     {
       cb: cb,
@@ -81,6 +85,9 @@ var ajax_booster =
   ,
   finished: function(url)
   {
+    phoxy.state.ajax.sheduled--;
+    this.update_badge();
+
     if (phoxy.state.ajax.booster[url].length > 0)
       return this.execute_next(url);
 
@@ -140,6 +147,13 @@ var ajax_booster =
       var task = this.pull_from_queue();
       this.schedule(task.url, task.cb, task.data);
     }
+  }
+  ,
+  update_badge: function()
+  {
+    var value = phoxy.state.ajax.sheduled + phoxy.state.ajax.queue.length;
+
+    $('#state').trigger('state.update', ['ajax', value]);
   }
 };
 

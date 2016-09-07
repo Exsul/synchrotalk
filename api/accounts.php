@@ -109,6 +109,7 @@ class accounts extends api
 
   protected function welcome($account)
   {
+    phoxy::SetCacheTimeout('session', '1d');
     return
     [
       "design" => "accounts/create/welcome",
@@ -149,6 +150,7 @@ class accounts extends api
 
   protected function itemize()
   {
+    phoxy::SetCacheTimeout('session', '60s');
     return
     [
       "design" => "accounts/list",
@@ -161,6 +163,7 @@ class accounts extends api
 
   protected function info($account_id)
   {
+    phoxy::SetCacheTimeout('session', '1w');
     $account = phoxy::Load('accounts/tokens')->info($account_id);
 
     return
