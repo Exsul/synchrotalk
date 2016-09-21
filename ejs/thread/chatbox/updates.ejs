@@ -41,7 +41,7 @@ function slice_items(data)
   __this.first().trigger('new.messages', [data]);
 }
 
-
+var unread = 0;
 __this.Defer(function()
 {
   __this.first().on('new.messages', function sliceitems(e, data)
@@ -54,6 +54,22 @@ __this.Defer(function()
     });
 
     __this.first().append(design);
+
+    // If user not on tab
+    if (document.hidden)
+    {
+      unread += data.items.length;
+      var old_title = document.title;
+      document.title = '[' + unread + ']';
+      new Audio('assets/fx/ping.wav').play();
+
+      $(document).one('visibilitychange', function()
+      {
+        document.title = old_title;
+        unread = 0;
+      });
+    }
+
   });
 });
 %>

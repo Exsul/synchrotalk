@@ -1,1 +1,25 @@
-<% __this.CascadeDesign('networks/icon', __this) %>
+<%
+function render(data)
+{
+  if (data.url == null)
+    return 'networks/icon';
+  return 'networks/icon.img';
+}
+
+function fetch(cb)
+{
+  var name = __this.name || __this.data;
+  var url = phoxy.ConstructURL(['networks/network/icon', name]);
+  phoxy.AJAX(url, function (r)
+  {
+    if (r.data.icon == null)
+      return cb(__this);
+
+    r.data.url = r.data.icon;
+    cb(r.data);
+  });
+}
+
+__this.CascadeDesign(render, fetch)
+
+%>

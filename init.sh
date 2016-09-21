@@ -6,5 +6,10 @@ ln -s ../vendor/phoxy/snippets ejs/snippets
 touch secret.yaml
 mkdir networks
 
-echo "Do not forget fill secret.yaml and"
-echo CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+echo "Do not forget:
+- fill secret.yaml
+- seed PostgreSQL database
+- CREATE EXTENSION IF NOT EXISTS \"uuid-ossp\"
+- download latest plugin.connector
+- download all required plugins
+"
