@@ -1,5 +1,7 @@
 <%
-if (typeof __this.name == 'string')
+if (!__this.name)
+  return __this.CascadeDesign('thread/users/one.nick', __this);
+else if (typeof __this.name == 'string')
   name = __this.name;
 else
   name = __this.name.join(" ");

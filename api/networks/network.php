@@ -89,4 +89,12 @@ class network extends api
 
     $obj->init($settings);
   }
+
+  protected function icon($name)
+  {
+    if (!conf()->networks->icons->$name)
+      return null;
+
+    return conf()->networks->icons->$name;
+  }
 }

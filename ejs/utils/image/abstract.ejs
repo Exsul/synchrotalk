@@ -6,7 +6,7 @@ var url;
 if (typeof data != 'undefined')
 {
   if (typeof data == 'string')
-    url = __this.data;
+    url = data;
   else if (Array.isArray(__this.data))
     return __this.CascadeDesign('utils/image/candidates', __this);
   else
@@ -36,5 +36,5 @@ __this.SetUrl = function(_url)
 };
 
 if (typeof url != 'undefined')
-  __this.Defer(this.SetUrl);
+  __this.Defer(__this.SetUrl);
 %>

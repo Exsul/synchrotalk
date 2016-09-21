@@ -2,7 +2,7 @@ db:
   connection_string: pgsql://user:password@host/database
 plugins:
   root_path: networks
-  lib_path: plugin
+  lib_path: networks/plugin.connector
   available:
     -
   hide:

@@ -24,7 +24,7 @@ route:
     minify: true
     max_age: 25200 # 1 week
 
-  - url: \/.+\.(png|jpg|ttf|txt|woff|woff2)$
+  - url: \/.+\.(png|jpg|ttf|txt|woff|woff2|ico|wav)$
     static: true
     max_age: 25200 # 1 week
 
