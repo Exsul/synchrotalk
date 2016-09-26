@@ -1,9 +1,9 @@
 <%
-function info(message)
+function info(f)
 {
 %>
   <div class="ui info message">
-    <%@ message %>
+    <%@ f.text %>
   </div>
 <%
 }
@@ -17,10 +17,18 @@ function field(f)
     info(f.description);
 %>
   <div class='ui input'>
-    <input name="<%@ f.name %>" placeholder="<%@ f.placeholder || f.name %>">
+    <input name="<%@ f.name %>" placeholder="<%@ f.placeholder || f.name %>" type="<%@ f.type != 'field' ? f.type : '' %>" >
   </div>
 <%
 }
+
+function section(f)
+{
+%>
+  <h4 class="ui dividing header"><%@ f.text %></h4>
+<%
+}
+
 %>
 <div class="ui form content">
 <%
@@ -28,7 +36,14 @@ for (var i = 0; i < __this.length; i++)
   switch (__this[i].type)
   {
   case 'field':
+  case 'password':
     field(__this[i]);
+    break;
+  case 'section':
+    section(__this[i]);
+    break;
+  case 'info':
+    info(__this[i]);
     break;
   default:
     alert("Unsupported markdown " + __this[i].type);
