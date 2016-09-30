@@ -14,7 +14,10 @@ function next_page()
   page++;
 
   if (draw.length == 0)
+  {
+    __this.escape().CheckIsCompleted.call(__this);
     return;
+  }
 
   var render_chunk = phoxy.DeferRender('inbox/itemize.split',
     {
@@ -27,6 +30,7 @@ function next_page()
 
 __this.Defer(function()
 {
+  __this.escape().recursive++;
   next_page();
 })
 

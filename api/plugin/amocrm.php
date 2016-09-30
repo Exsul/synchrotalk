@@ -124,7 +124,6 @@ class amocrm extends api
     $account = phoxy::Load('accounts')->info($account_id);
     $user['network'] = $account['network'];
     $user['chat_link'] = $this->ThreadLink($account_id, $thread_id);
-    $user['profile_link'] = "http://TODO.{$account['network']}/{$user['nickname']}";
 
     $amocrm = $this->LoginedAmoCRM();
 

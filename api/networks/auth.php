@@ -84,17 +84,21 @@ class auth extends api
 
     $auth = $this->load();
 
+    $result = $auth->$instruction($data);
+
+    phoxy_protected_assert(!isset($result['error']), $result);
+
     if (!$is_laststep)
       return
       [
         'design' => 'networks/auth/sequence.step',
         'data' =>
         [
-          'commands' => $auth->$instruction($data),
+          'commands' => $result ,
         ],
       ];
 
-    $token = $auth->$instruction($data);
+    $token = $result;
 
     $account = phoxy::Load('accounts')
         ->save_network($this->network_name, $token);

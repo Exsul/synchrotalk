@@ -151,9 +151,18 @@ var ajax_booster =
   ,
   update_badge: function()
   {
-    var value = phoxy.state.ajax.sheduled + phoxy.state.ajax.queue.length;
+    if (ajax_booster.timer)
+      return;
 
-    $('#state').trigger('state.update', ['ajax', value]);
+    ajax_booster.timer = setTimeout(function()
+    {
+      var value = phoxy.state.ajax.current_threads + phoxy.state.ajax.queue.length;
+
+      $('#state').trigger('state.update', ['ajax', value]);
+
+      ajax_booster.timer = undefined;
+    }, 300);
+
   }
 };
 
