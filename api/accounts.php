@@ -151,6 +151,7 @@ class accounts extends api
   protected function itemize()
   {
     phoxy::SetCacheTimeout('session', '60s');
+
     return
     [
       "design" => "accounts/list",

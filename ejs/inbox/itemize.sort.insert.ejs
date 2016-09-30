@@ -1,0 +1,64 @@
+<%
+function updated(element)
+{
+  return $(element).attr('updated');
+}
+
+function id(element)
+{
+  return $(element).attr('id');
+}
+
+var sound_played = 0;
+function before(what, where)
+{
+  var task = phoxy.DeferRender("inbox/itemize.entry", what);
+  $(where).before(task);
+
+  $('[account="' + what.account + '"]')
+    .filter('#' + what.id)
+    .remove();
+
+  if (!sound_played)
+    sound_played = new Audio('assets/fx/pipe.wav').play();
+}
+
+__this.Defer(function()
+{
+  var container = __this.first().parents('table');
+  var inbox = container.find('tr');
+  __this.first().remove();
+
+  var i = 0, n = 0;
+  var i_max = inbox.length, n_max = __this.inbox.length;
+
+  // This loop causing compare each element each time
+  while (i < i_max && n < n_max)
+  {
+    if (__this.inbox[n].updated == updated(inbox[i]))
+      if (__this.inbox[n].id == id(inbox[i]))
+      {
+        i++, n++;
+        continue;
+      }
+
+    if (__this.inbox[n].updated > updated(inbox[i]))
+    {
+      before(__this.inbox[n], inbox[i]);
+      n++;
+      continue;
+    }
+
+    i++;
+  }
+
+  if (i == i_max && n != n_max)
+  {
+    var tail_update
+      = phoxy.DeferRender('inbox/itemize', {inbox: __this.inbox.slice(n)});
+    container.append(tail_update);
+  }
+});
+
+%>
+<ancor></ancor>

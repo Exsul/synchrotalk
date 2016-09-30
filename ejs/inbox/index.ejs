@@ -1,1 +1,20 @@
 <% __this.CascadeRequest('inbox/itemize') %>
+
+<%
+var refresh_frequency = 5;
+
+__this.DeferCascade(function()
+{
+  if (!$.contains(document, __this.first()[0]))
+    return;
+
+  var task = phoxy.AJAX(['inbox/itemize', __this.thread_id],
+    function(r)
+    {
+      __this.first().append(phoxy.DeferRender('inbox/itemize.sort.insert', r.data));
+    }
+  );
+
+  phoxy.Defer(arguments.callee, refresh_frequency * 1000);
+});
+%>
