@@ -1,0 +1,12 @@
+<%
+content =
+{
+  'type': __this.type,
+  'icon': __this.icon || 'warning',
+  'header': __this.header || 'error',
+  'content': __this.content || __this.error,
+};
+
+__this.CascadeDesign('utils/error/abstract.page', content);
+%>
+

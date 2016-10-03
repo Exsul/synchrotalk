@@ -37,6 +37,11 @@ class tokens extends api
   // Token in callstack disclosure
   public function update($account_id, $token)
   {
+    phoxy_protected_assert(
+      !is_array($token) || !isset($token['error']),
+      "Unable to save token");
+
+
     db::Query("UPDATE personal.tokens
       SET token_data=$3
       WHERE uid=$1 AND account_id=$2",

@@ -39,9 +39,10 @@ class user extends api
     session_destroy();
   }
 
-  private function login()
+  public function login($uid = null)
   {
-    $uid = phoxy::Load('user/store')->Register();
+    if (is_null($uid))
+      $uid = phoxy::Load('user/store')->Register();
 
     $my_name = &$this->get_uid();
     $my_name = $uid;

@@ -3,19 +3,20 @@
   height: 100%;
   display: table;
   position: fixed;
-}
 
-.centered > div {
-  display: table-cell;
-  vertical-align: middle;
-  width: inherit;
-  height: 100%;
-  text-align: center;
-}
-.centered > div > div {
-  display: inline-block;
-}
+  &.fluid {
+    width: 100%;
+  }
 
-.centered > div > div > .relative {
+  & > div {
+    display: table-cell;
+    vertical-align: middle;
+    width: inherit;
+    height: 100%;
+    text-align: center;
 
+    & > div {
+      display: inline-block;
+    }
+  }
 }
