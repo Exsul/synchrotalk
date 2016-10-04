@@ -3,6 +3,7 @@
     height: 4em;
 
     & td > a.content {
+      display: block;
       color: initial;
     }
   }
@@ -19,13 +20,22 @@
     }
   }
 
-  & .message {
-    white-space: nowrap;
-    height: 1em;
+  & .content {
+    padding-bottom: 1.4285em;
+
+    & .message {
+      height: 1.4285em;
+      overflow-y: hidden;
+      position: absolute;
+      pointer-events: none;
+      padding-bottom: 1px;
+    }
+
+
+    &:hover .message {
+      height: auto;
+      background-color: #F3F3F3;
+    }
   }
 
-   & .message:hover {
-    white-space: initial;
-    height: auto;
-  }
 }
