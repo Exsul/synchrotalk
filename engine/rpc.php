@@ -54,8 +54,6 @@ phoxy_return_worker::$add_hook_cb = function($that)
 {
   global $USER_SENSITIVE;
 
-  var_dump($that);
-
   if ($USER_SENSITIVE)
     $that->NewCache(['global' => 'no']);
 

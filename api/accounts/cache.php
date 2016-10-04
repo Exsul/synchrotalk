@@ -21,7 +21,7 @@ class cache extends api
       WHERE account_id=$1
         AND type=$2
         AND resource_id=$3
-        AND expired < now()",
+        AND expired > now()",
         [$this->AccountID(), $type, $resource_id], true);
 
     if ($cache())
