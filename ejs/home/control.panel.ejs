@@ -18,7 +18,9 @@ __this.Defer(function()
 
 function RedirectToRightPanel(e)
 {
-  var thread = phoxy.DeferRender($(e.target).attr('href'));
+  var target_link = $(e.target).parents().add(e.target).filter('a.content');
+
+  var thread = phoxy.DeferRender(target_link.attr('href'));
 
   __this.first().find('.thread.column').html(thread);
 
