@@ -12,7 +12,7 @@ function id(element)
 var sound_played = 0;
 function before(what, where)
 {
-  var task = phoxy.DeferRender("inbox/itemize.entry", what);
+  var task = phoxy.DeferRender("inbox/itemize.entry", what, undefined, '<tr>');
   $(where).before(task);
 
   $('[account="' + what.account + '"]')
