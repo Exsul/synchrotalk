@@ -1,9 +1,31 @@
-.inbox .header .title {
-  font-weight: bold;
-}
+.inbox {
+  & tr {
+    height: 4em;
 
-.inbox .header .date.sub.header {
-  float: right;
-  color: gray;
-  font-size: 0.9em;
+    & td > a.content {
+      color: initial;
+    }
+  }
+
+  & .header {
+    & .title {
+      font-weight: bold;
+    }
+
+    & .date.sub.header {
+      float: right;
+      color: gray;
+      font-size: 0.9em;
+    }
+  }
+
+  & .message {
+    white-space: nowrap;
+    height: 1em;
+  }
+
+   & .message:hover {
+    white-space: initial;
+    height: auto;
+  }
 }

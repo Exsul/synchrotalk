@@ -1,15 +1,10 @@
 <tr id='<%@ __this.id %>' account='<%@ __this.account %>' class='thread' updated='<%@ __this.updated %>'>
   <td class='collapsing'>
-    <h4 class="ui image header">
       <%
       __this.users[0].account = __this.account;
       __this.CascadeDesign('thread/users/one.image.by-id',
         __this.users[0])
       %>
-      <span class="content">
-
-      </div>
-    </h4>
   </td>
   <td>
     <% __this.CascadeDesign('inbox/entry.content', __this) %>
