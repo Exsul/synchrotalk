@@ -1,4 +1,4 @@
-<div class='ui grid'>
+<div class='ui control panel grid'>
   <div class='ui inbox four wide column'>
     <% __this.CascadeRequest('inbox'); %>
   </div>
@@ -28,4 +28,15 @@ function RedirectToRightPanel(e)
   e.stopPropagation();
   return false;
 }
+
+
+$('.main.container').addClass('fullscreen');
+
+__this.Defer(function()
+{
+  if ($.contains(document, __this.first()[0]))
+    return phoxy.DeferRender(arguments.callee, 1000);
+
+  $('.main.container').removeClass('fullscreen');
+});
 %>
