@@ -20,6 +20,9 @@ function RedirectToRightPanel(e)
 {
   var target_link = $(e.target).parents().add(e.target).filter('a.content');
 
+  if (target_link.length == 0)
+    return; // not pressed at chat link
+
   var thread = phoxy.DeferRender(target_link.attr('href'));
 
   __this.first().find('.thread.column').html(thread);
