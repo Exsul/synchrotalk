@@ -2,9 +2,20 @@
   & tr {
     height: 4em;
 
-    & td > a.content {
-      display: block;
-      color: initial;
+    // Make whole TD clickable
+    & > td:last-child {
+      padding: 0 !important;
+      position: relative;
+
+      & > a.content {
+        display: block;
+        color: initial;
+        position: absolute;
+        top: 0;
+        height: 100%;
+        width: 100%;
+        padding-top: 0.5em;
+      }
     }
   }
 
