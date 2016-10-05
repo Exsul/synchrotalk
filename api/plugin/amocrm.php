@@ -186,14 +186,36 @@ class amocrm extends api
 
   private function ThreadLink($account_id, $thread_id)
   {
-    $obj = [ $account_id, $thread_id ];
+    $account = phoxy::Load('accounts')->info($account_id);
+
+    $obj =
+    [
+      $account['network'],
+      $thread_id,
+      $account['profile']
+    ];
+
     $json = json_encode($obj, true);
     return phoxy_conf()["site"]."plugin/amocrm/thread({$json})";
   }
 
   protected function thread($obj)
   {
-    return phoxy::Load('thread', true)->Reserve($obj[0], $obj[1]);
+    list($network, $thread, $profile) = $obj;
+
+    foreach (phoxy::Load('accounts')->connected() as $account)
+      if ($account['network'] == $network)
+        if (is_null($profile) || $account['profile_id'] == $profile)
+          return phoxy::Load('thread', true)
+            ->Reserve($account['account_id'], $thread);
+    return
+    [
+      "design" => "utils/error/page",
+      "data" =>
+      [
+        "error" => "Unable to find connected '{$network}' account with profile id {$profile}",
+      ],
+    ];
   }
 
   private function RequireAccount()
