@@ -88,8 +88,12 @@ var ajax_booster =
     phoxy.state.ajax.sheduled--;
     this.update_badge();
 
-    if (phoxy.state.ajax.booster[url].length > 0)
-      return this.execute_next(url);
+    // Should check for this.can_soft_shedule())
+    for (var i = 0; i < phoxy.state.ajax.booster[url].length; i++)
+    {
+      var task = phoxy.state.ajax.booster[url][i];
+      this.ajax(url, task.cb, task.data);
+    }
 
     delete phoxy.state.ajax.booster[url];
     phoxy.state.ajax.current_threads--;
