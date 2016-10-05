@@ -1,0 +1,52 @@
+<%
+var url = phoxy.ConstructURL
+  ([
+    location.origin
+      + "/user/share/import"
+    , __this.hash
+  ]);
+
+// http://stackoverflow.com/a/30810322/1472668
+
+__this.Defer(function()
+{
+  __this.first().find('button').click(function()
+  {
+    var input = __this.first()
+      .find('.clipboard');
+
+    input
+      .addClass('active')
+      .select();
+
+
+    try
+    {
+      var successful = document.execCommand('copy');
+      if (!successful)
+        throw new "Unable to fill clipboard";
+
+      __this.first().find('.icon').removeClass('hidden');
+    } catch (err) {
+      phoxy.Log(2, "Won't work in your browser, sorry");
+    }
+
+    input.removeClass('active');
+
+  });
+});
+%>
+
+<div class="centered fluid">
+  <div>
+    <div>
+      <h5 class='ui header content'><%@ url %></h5>
+
+      <button class='ui button'>
+        <i class='ui green icon checkmark hidden'></i>
+        Copy
+      </button>
+      <input class='clipboard' value="<%@ url %>" />
+    </div>
+  </div>
+</div>

@@ -1,4 +1,4 @@
-<div class='content'>
+<a class='content' href='<%@ phoxy.ConstructURL(['thread', __this.account, __this.id])%>'>
   <div class='header'>
     <span class='title'>
       <% __this.CascadeDesign('networks/icon.by.account-id', __this.account) %>
@@ -17,15 +17,7 @@
           || __this.last_messages[0].updated) %>
     </span>
   </div>
-  <% __this.CascadeDesign('thread/items/one', __this.last_messages[0]) %>
-</div>
-
-<%
-__this.Defer(function()
-{
-  __this.first().click(function()
-  {
-    phoxy.MenuCall(['thread', __this.account, __this.id]);
-  });
-});
-%>
+  <div class='message'>
+    <% __this.CascadeDesign('thread/items/one', __this.last_messages[0]) %>
+  </div>
+</a>

@@ -1,0 +1,45 @@
+<div class='ui control panel grid'>
+  <div class='ui inbox five wide column'>
+    <% __this.CascadeRequest('inbox'); %>
+  </div>
+  <div class='ui thread eleven wide column'>
+  </div>
+</div>
+
+<%
+__this.Defer(function()
+{
+  __this
+    .first()
+    .find('.inbox.column')
+    .get(0)
+    .addEventListener('click', RedirectToRightPanel, true);
+});
+
+function RedirectToRightPanel(e)
+{
+  var target_link = $(e.target).parents().add(e.target).filter('a.content');
+
+  if (target_link.length == 0)
+    return; // not pressed at chat link
+
+  var thread = phoxy.DeferRender(target_link.attr('href'));
+
+  __this.first().find('.thread.column').html(thread);
+
+  e.preventDefault();
+  e.stopPropagation();
+  return false;
+}
+
+
+$('.main.container').addClass('fullscreen');
+
+__this.Defer(function()
+{
+  if ($.contains(document, __this.first()[0]))
+    return phoxy.DeferRender(arguments.callee, 1000);
+
+  $('.main.container').removeClass('fullscreen');
+});
+%>

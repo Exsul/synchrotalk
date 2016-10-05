@@ -1,0 +1,38 @@
+<%
+var domain_parts = location.hostname.split();
+
+var base_domain = domain_parts.slice(-__this.domain_level);
+
+var version_domain = __this.version + "." + base_domain;
+
+
+var url = phoxy.ConstructURL
+  ([
+    version_domain
+      + "/user/share/import"
+    , __this.hash
+  ]);
+
+%>
+
+<div class="centered fluid">
+  <div>
+    <div>
+
+      <a href="//<%@ url %>" class='ui button'>
+        Update to <%@ __this.version %>
+      </a>
+
+      <div class="ui message">
+        <div class="header">
+          Attention
+        </div>
+
+        <p>This action will navigate you to <b><%@ location.protocol + "//" + version_domain %></b></p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+

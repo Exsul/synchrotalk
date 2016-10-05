@@ -28,7 +28,8 @@ __this.SetUrl = function(_url)
   if (typeof _url != 'undefined')
     url = _url;
 
-  if (typeof ajax_booster == 'undefined')
+  // Disable image rescheduling, testing without it.
+  //if (typeof ajax_booster == 'undefined')
     return SetImgSrc();
 
   // Never make real ajax request, it require server header

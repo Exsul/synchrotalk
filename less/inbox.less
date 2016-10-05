@@ -1,9 +1,52 @@
-.inbox .header .title {
-  font-weight: bold;
-}
+.inbox {
+  & tr {
+    height: 4em;
 
-.inbox .header .date.sub.header {
-  float: right;
-  color: gray;
-  font-size: 0.9em;
+    // Make whole TD clickable
+    & > td:last-child {
+      padding: 0 !important;
+      position: relative;
+
+      & > a.content {
+        display: block;
+        color: initial;
+        position: absolute;
+        top: 0;
+        height: 100%;
+        width: 100%;
+        padding-top: 0.5em;
+      }
+    }
+  }
+
+  & .header {
+    & .title {
+      font-weight: bold;
+    }
+
+    & .date.sub.header {
+      float: right;
+      color: gray;
+      font-size: 0.9em;
+    }
+  }
+
+  & .content {
+    padding-bottom: 1.4285em;
+
+    & .message {
+      height: 1.4285em;
+      overflow-y: hidden;
+      position: absolute;
+      pointer-events: none;
+      padding-bottom: 1px;
+    }
+
+
+    &:hover .message {
+      height: auto;
+      background-color: #F3F3F3;
+    }
+  }
+
 }
